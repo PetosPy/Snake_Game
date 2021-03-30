@@ -1,34 +1,35 @@
-from turtle import Turtle, Screen
+from turtle import Turtle
+
 ALIGNMENT = "center"
 FONT = ("Courier", 20, "normal")
 
-screen = Screen()
-user_name = screen.textinput("Name", "Enter your name: ")
+
 class Scoreboard(Turtle):
 
     def __init__(self):
         super().__init__()
         self.color("white")
         self.score = 0
+        with open("data.txt") as data:
+            self.high_score = int(data.read())
         self.penup()
         self.goto(x=0, y=270)
         self.hideturtle()
         self.update_scoreboard()
 
 
-    def user_input(self):
-        self.goto(x=0, y=-50)
-        self.write(f"{user_name}", align=ALIGNMENT, font=FONT)
-
-
-
     def update_scoreboard(self):
-        self.write(f"Score: {self.score}", align=ALIGNMENT, font=FONT)
+        self.clear()
+        self.write(f"Score: {self.score} High Score: {self.high_score}", align=ALIGNMENT, font=FONT)
 
 
-    def game_over(self):
-        self.goto(x=0, y=0)
-        self.write("GAME OVER", align=ALIGNMENT, font=FONT)
+    def reseter(self):
+        if self.score > self.high_score:
+            self.high_score = self.score
+            with open("data.txt", "w") as data:
+                data.write(f"{self.high_score}")
+        self.score = 0
+        self.update_scoreboard()
 
 
     def total_score(self):

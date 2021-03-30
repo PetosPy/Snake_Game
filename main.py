@@ -14,7 +14,7 @@ screen.listen()
 directions = [0, 90, 180, 270]
 
 screen.bgcolor("black")
-screen.title("Petos Snake Game")
+screen.title("Petos the Snake ")
 screen.setup(width=600, height=600)
 screen.tracer(0)
 
@@ -26,6 +26,8 @@ screen.onkey(snake.up, "Up")
 screen.onkey(snake.down, "Down")
 screen.onkey(snake.left, "Left")
 screen.onkey(snake.right, "Right")
+
+
 scoreboard = Scoreboard()
 
 
@@ -43,18 +45,18 @@ while game_is_on:
 
     # Detect collision with wall.
     if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
-        game_is_on = False
-        scoreboard.game_over()
-        scoreboard.user_input()
-        scoreboard.total_score()
+        scoreboard.reseter()
+        snake.snake_reset()
+        #scoreboard.user_input()
+        #scoreboard.total_score()
 
     # Detect collision with tail.
     for segment in snake.segments[1:]:
         if snake.head.distance(segment) < 10:
-            game_is_on = False
-            scoreboard.game_over()
-            scoreboard.user_input()
-            scoreboard.total_score()
+            scoreboard.reseter()
+            snake.snake_reset()
+            #scoreboard.user_input()
+            #scoreboard.total_score()
 
 
 
